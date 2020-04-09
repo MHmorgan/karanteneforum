@@ -1,0 +1,29 @@
+
+<!-- Siste nyhet -------------------------------------------------------------->
+
+<div class="w3-container w3-center">
+    {% if LATEST %}
+        <h4 class="w3-animate-top"><i><span class="w3-text-theme">Aktivitet:</span> <span id="latest_news">{{ LATEST }}</span></i></h4>
+    {% endif %}
+</div>
+
+<script>
+
+// -----------------------------------------------------------------------------
+// Regularly update the news
+
+interval = 4 * 1000  // ms
+
+function update_news() {
+    setTimeout(() => {
+        $("#latest_news").load("/latest", (responseTxt, statusTxt, xhr) => {
+            update_news();
+        });
+    }, interval);
+}
+
+$(document).ready(() => {
+    update_news();
+});
+
+</script>

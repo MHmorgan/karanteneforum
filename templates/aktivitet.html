@@ -1,0 +1,15 @@
+
+<div class="w3-container w3-center w3-padding">
+    <h1 class="w3-padding">Aktivitet</h1>
+    <div class="w3-responsive" style="margin-left: 10%; margin-right: 10%;">
+        <table class="w3-table-all w3-hoverable">
+            <col width=200px>
+            {% for txt,tid in AKTIVITET %}
+            <tr>
+                <td class="w3-opacity">[{{ tid }}]</td>
+                <td>{{ txt }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

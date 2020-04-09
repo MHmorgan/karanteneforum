@@ -1,0 +1,60 @@
+<!-- Agenda ------------------------------------------------------------------->
+
+<a href="/agenda" style="text-decoration: none;">
+    <div class="w3-container w3-center w3-padding-64 w3-margin w3-card-4 w3-theme w3-hover-opacity">
+        <span class="w3-xxxlarge"><i class="fa fa-list w3-margin-right"></i> Agenda</span>
+    </div>
+</a>
+
+
+<!-- Drikkeleker -------------------------------------------------------------->
+
+<a href="/drikkeleker" style="text-decoration: none;">
+    <div class="w3-container w3-center w3-padding-64 w3-margin w3-hover-opacity">
+        <span class="w3-xxxlarge"><i class="fas fa-glass-cheers w3-text-theme w3-margin-right"></i> Drikkeleker</span>
+    </div>
+</a>
+
+
+<!-- Spill -------------------------------------------------------------------->
+
+<a href="/spill" style="text-decoration: none;">
+    <div class="w3-container w3-center w3-padding-64 w3-margin w3-card-4 w3-theme w3-hover-opacity">
+        <span class="w3-xxxlarge"><i class="fas fa-gamepad w3-margin-right"></i> Spill</span>
+    </div>
+</a>
+
+
+<!-- Chat --------------------------------------------------------------------->
+
+<div class="w3-container w3-center w3-margin w3-padding-64">
+    <widgetbot server="697481823755698236" channel="697481823755698239" width="100%" height="600"
+        shard="https://disweb.dashflo.net"></widgetbot>
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+</div>
+
+
+<!-- Drikkeleker -------------------------------------------------------------->
+
+{#
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-container">
+        <div class="w3-third w3-center">
+            <i class="fas fa-glass-cheers w3-padding-64 w3-text-theme w3-margin-right" style="font-size: 200px;"></i>
+            <!-- <i class="fas fa-glass-cheers"></i> -->
+        </div>
+
+        <div class="w3-twothird w3-center">
+
+            <div class="w3-row-padding">
+                {% for i in range(0,10) %}
+                <div class="w3-col m4 w3-container w3-button w3-theme-hover w3-padding">
+                    <h2>Lek {{ i }}</h2>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+#}

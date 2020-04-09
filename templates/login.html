@@ -1,0 +1,19 @@
+<div class="w3-card-4 w3-margin">
+    <div class="w3-container w3-theme">
+        <h2>Strindtnavn</h2>
+    </div>
+    <form class="w3-container" method="post">
+        {% if ERROR %}
+            <p class="w3-text-red">{{ ERROR }}</p>
+        {% endif %}
+        <p>
+            <input class="w3-input w3-border w3-hover-border-theme" type="text" name="strindtnavn" placeholder="#1 Arne">
+        </p>
+        <p>
+            <input class="w3-input w3-border w3-hover-border-theme" type="text" name="kirkegard" placeholder="Kirkegård...">
+        </p>
+        <p>
+            <button class="w3-btn w3-theme" value="login">Til hybelen! <i class="fa fa-glass"></i></button>
+        </p>
+    </form>
+</div>
