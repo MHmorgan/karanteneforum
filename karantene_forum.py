@@ -178,9 +178,11 @@ def post_message():
 
     def func(ctx):
         json = request.get_json()
-        database.new_message(json['msg'], ctx['USER'])
-        latest = database.latest_messages()[0]
-        socketio.emit('new_message', (latest[0], latest[1], latest[2]))
+        msg = json['msg'].strip()
+        if msg:
+            database.new_message(msg, ctx['USER'])
+            latest = database.latest_messages()[0]
+            socketio.emit('new_message', (latest[0], latest[1], latest[2]))
         return ('', 204)
 
     return runner(func)
