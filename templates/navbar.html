@@ -1,28 +1,3 @@
-<!--
-    .w3-theme-l5
-    .w3-theme-l4
-    .w3-theme-l3
-    .w3-theme-l2
-    .w3-theme-l1
-    .w3-theme-d1
-    .w3-theme-d2
-    .w3-theme-d3
-    .w3-theme-d4
-    .w3-theme-d5
-
-    .w3-theme-light
-    .w3-theme-dark
-    .w3-theme-action
-
-    .w3-theme
-    .w3-text-theme
-    .w3-border-theme
-
-    .w3-hover-theme:hover
-    .w3-hover-text-theme:hover
-    .w3-hover-border-theme:hover
--->
-
 <!-- Main navbar ---------------------------------------------------------->
 
 <div class="w3-top">
@@ -30,46 +5,77 @@
 
         <!-- Cheers! -->
         {% if USER %}
-        <button class="w3-bar-item w3-button w3-padding-large w3-hover-theme w3-theme-d4" title="Skål!" onclick="cheers()">
+        <button class="w3-bar-item w3-button w3-padding-large w3-hover-theme w3-theme-d4" title="Skål!"
+            onclick="socket.emit('cheers', {});">
             <i class="fa fa-beer"></i>
         </button>
         {% endif %}
 
         <!-- Home link icon -->
         <a href="/" class="w3-bar-item w3-button w3-padding-large w3-hover-theme">
-            {{ APP_NAME }}
+            Karanteneforum
         </a>
 
         {% if USER %}
 
+        {#
         <!-- Agenda link icon -->
         <a href="/agenda" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme" title="Agenda">
             <i class="fa fa-list"></i>
         </a>
+        #}
 
         <!-- Kalender link icon -->
-        <a href="/hva_skjer" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme" title="Sjekk hva skjer">
+        <a href="/hva_skjer" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme"
+            title="Sjekk hva skjer">
             <i class="fas fa-calendar-alt"></i>
         </a>
 
-        <!-- Aktivitet link icon -->
-        <a href="/aktivitet" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme" title="Aktivitet">
-            <i class="fas fa-chart-area"></i>
+        <!-- Messages link icon -->
+        <a href="/meldinger" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme"
+            title="Meldinger">
+            <i class="fas fa-comments"></i>
         </a>
+
+        <!-- User name and special permission links -->
+        <div class="w3-dropdown-hover w3-right w3-hide-small">
+            <button class="w3-button w3-padding-large w3-hover-theme">
+                <i class="far fa-user-circle w3-margin-right"></i>{{ USER }}
+            </button>
+            <div class="w3-dropdown-content w3-bar-block w3-theme-d2" style="right:0">
+
+                {% if KVISSMASTER_RETTIGHET or BDFL_RETTIGHET %}
+                <a href="/kvissmaster" class="w3-bar-item w3-button">Kvissmaster</a>
+                {% endif %}
+
+                {% if STATUS_RETTIGHET or BDFL_RETTIGHET %}
+                <a href="/status" class="w3-bar-item w3-button">Ny status</a>
+                {% endif %}
+
+                {% if TILGANGER_RETTIGHET or BDFL_RETTIGHET %}
+                <a href="/tilganger" class="w3-bar-item w3-button">Brukerrettigheter</a>
+                {% endif %}
+
+                {% if BDFL_RETTIGHET or BDFL_RETTIGHET %}
+                <a href="/bdfl" class="w3-bar-item w3-button">BDFL</a>
+                {% endif %}
+
+            </div>
+        </div>
 
         <!-- Sign out button -->
         <form method="post" action="/logout">
-            <!-- TODO: Ajax logout -->
             <button class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large  w3-hover-theme" value="logout"
                 title="Nå går de gamle hjem!">
                 <i class="fas fa-sign-out-alt"></i>
             </button>
         </form>
 
-        <!-- User name -->
-        <span class="w3-bar-item w3-hide-small w3-right w3-padding-large">
-            <i class="far fa-user-circle w3-margin-right"></i>{{ USER }}
-        </span>
+        <!-- Aktivitet link icon -->
+        <a href="/aktivitet" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme w3-right"
+            title="Aktivitet">
+            <i class="fas fa-chart-area"></i>
+        </a>
 
         {% endif %}
 
@@ -89,14 +95,34 @@
 </div>
 
 
+<!-- Skål pop-up ---------------------------------------------------------->
+
+{% if USER %}
+<div id="cheers-modal" class="w3-modal" onclick="$('#cheers-modal').hide();">
+    <div class="w3-modal-content w3-animate-top w3-card-4" style="width: 300px;">
+        <header class="w3-container w3-theme w3-center">
+            <h2><i class="fas fa-glass-cheers w3-margin-right"></i>Skål!</i></h2>
+        </header>
+        <div class="w3-container w3-center w3-padding">
+            <p><span id="cheers-name">??</span> skålet!<i class="fas fa-beer w3-margin-left"></i></p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
 <!-- Script --------------------------------------------------------------->
 
 <script>
 
-function cheers() {
-    $.get("/cheers", (data, status) => {
-        update_news();
+    socket.on('cheers', (msg) => {
+        $('#cheers-name').text(msg);
+        $('#cheers-modal').show();
     });
-}
+
+    socket.on('cheers-quarantine', (msg) => {
+        alert('Du skålet nylig og er i skålekarantene!')
+    });
+
 
 </script>

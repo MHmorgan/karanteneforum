@@ -2,6 +2,7 @@
 import re
 
 from flask import Flask, render_template, url_for, request, make_response, session, redirect, escape, abort
+from flask_socketio import SocketIO, send, emit
 
 # ------------------------------------------------------------------------------
 # Input validation
@@ -18,23 +19,3 @@ valid_kirkegard = 'Feil kirkegård...'
 # Constants
 
 NAME_COOKIE = 'strindtnavn'
-
-DATABASE = 'karanteneforum.db'
-AKTIVITETER_TABLE = 'Aktiviteter'
-
-
-################################################################################
-#                                                                              #
-#  Global HTML template environment
-#                                                                              #
-################################################################################
-
-def context(**kwargs):
-    ctx = {
-        'APP_NAME' : 'Karanteneforum',
-        'ERROR' : None,
-        'USER' : None,
-        'LATEST' : None,
-    }
-    ctx.update(kwargs)
-    return ctx

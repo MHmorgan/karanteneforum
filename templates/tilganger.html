@@ -1,0 +1,108 @@
+
+<div class="w3-container w3-center">
+    <h1>Tilganger</h1>
+
+    <table class="w3-table w3-centered">
+
+        {% for user, kvissmaster, status, tilganger, _ in ALL_PERMISSIONS %}
+        {% set txt = user.replace(' ', '').replace('#', '') %}
+        <tr>
+            <td style="margin-top: 0; margin-bottom: 0; padding-bottom: 0; padding-top: 0;">
+                <form class="w3-bar w3-border-bottom">
+                        <div class="w3-bar-item w3-padding-16 w3-left-align" style="width: 140px;">
+                            <span id="{{ txt }}-permission-bruker">{{ user }}</span>
+                        </div>
+
+                        <div class="w3-bar-item">
+                            <input id="{{ txt }}-kvissmaster-checkbox" class="w3-check" type="checkbox" {% if kvissmaster %}checked {% endif %}>
+                            <label>Kvissmaster</label>
+                        </div>
+
+                        <div class="w3-bar-item">
+                            <input id="{{ txt }}-status-checkbox" class="w3-check" type="checkbox" {% if status %}checked {% endif %}>
+                            <label>Status</label>
+                        </div>
+
+                        <div class="w3-bar-item">
+                            <input id="{{ txt }}-tilganger-checkbox" class="w3-check" type="checkbox" {% if tilganger %}checked {% endif %}>
+                            <label>Tilganger</label>
+                        </div>
+
+                        <div class="w3-bar-item">
+                            <button class="w3-button w3-theme" onclick="editPermission('{{ txt }}')" type="submit">Oppdater</button>
+                        </div>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<div class="w3-container w3-center w3-padding-64">
+    <h1>Legg til bruker</h1>
+
+    <form class="w3-bar">
+        <div class="w3-bar-item">
+            <input id="new-permission-bruker" class="w3-input w3-theme-l5" type="text" style="width: 160px;"
+                placeholder="Bruker">
+        </div>
+
+        <div class="w3-bar-item">
+            <input id="new-kvissmaster-checkbox" class="w3-check" type="checkbox">
+            <label>Kvissmaster</label>
+        </div>
+
+        <div class="w3-bar-item">
+            <input id="new-status-checkbox" class="w3-check" type="checkbox">
+            <label>Status</label>
+        </div>
+
+        <div class="w3-bar-item">
+            <input id="new-tilganger-checkbox" class="w3-check" type="checkbox">
+            <label>Tilganger</label>
+        </div>
+
+        <div class="w3-bar-item">
+            <button class="w3-button w3-theme" onclick="editPermission('new')" type="submit">Legg til</button>
+        </div>
+    </form>
+</div>
+
+<script>
+
+    $(document).ready( () => {
+        // $('input[type=checkbox]').prop('checked', true);
+        $('form').submit( (e) => {
+            e.preventDefault();
+        });
+    });
+
+    function editPermission(txt) {
+        if (txt == 'new' ) {
+            var user = $('#new-permission-bruker').val();
+        } else {
+            var user = $('#' + txt + '-permission-bruker').text();
+        }
+        var kvissmaster = $('#' + txt + '-kvissmaster-checkbox').prop('checked');
+        var status = $('#' + txt + '-status-checkbox').prop('checked');
+        var tilganger = $('#' + txt + '-tilganger-checkbox').prop('checked');
+        $.ajax({
+            url: "/tilganger",
+            type: "POST",
+            success: (data, status, xhr) => {
+                location.reload();
+            },
+            data: JSON.stringify({
+                user: user,
+                kvissmaster: kvissmaster,
+                status: status,
+                tilganger: tilganger,
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        });
+    }
+
+</script>

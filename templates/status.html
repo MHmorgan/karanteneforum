@@ -1,0 +1,102 @@
+
+<div class="w3-container w3-center w3-padding-64">
+
+    <div class="w3-row">
+        <a href="javascript:void(0)" onclick="switch_tab('new-status-form');">
+            <div id="new-status-form-link" class="w3-third tablink w3-bottombar w3-hover-theme w3-padding">Skriv ny status</div>
+        </a>
+        <a href="javascript:void(0)" onclick="switch_tab('edit-status-form');">
+            <div id="edit-status-form-link" class="w3-third tablink w3-bottombar w3-hover-theme w3-padding">Endre nåværende status</div>
+        </a>
+        <a href="javascript:void(0)" onclick="switch_tab('delete-status-form');">
+            <div id="delete-status-form-link" class="w3-third tablink w3-bottombar w3-hover-theme w3-padding">Slett nåværende status</div>
+        </a>
+    </div>
+
+
+    <!-- New status form -------------------------------------------------->
+
+    <div id="new-status-form" class="w3-container statusaction w3-margin" style="display:none">
+        <form action="" class="w3-row-padding w3-margin" onsubmit="new_status()">
+            <div class="w3-col m10">
+                <input class="w3-input w3-theme-l5" type="text" id="new-status-text" placeholder="Status...">
+            </div>
+            <div class="w3-col m2">
+                <button class="w3-button w3-theme w3-theme-hover" type="submit" style="width: 100%;">Send</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- Edit status form ------------------------------------------------->
+
+    <div id="edit-status-form" class="w3-container statusaction w3-margin" style="display:none">
+        <form action="" class="w3-row-padding w3-margin" onsubmit="edit_status()">
+            <div class="w3-col m10">
+                <input class="w3-input w3-theme-l5" type="text" id="edit-status-text" placeholder="{{ STATUS }}" value="{{ STATUS }}">
+            </div>
+            <div class="w3-col m2">
+                <button class="w3-button w3-theme w3-theme-hover" type="submit" style="width: 100%;">Send</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- Delete status form ----------------------------------------------->
+
+    <div id="delete-status-form" class="w3-container statusaction w3-margin" style="display:none">
+        <form action="" class="w3-row-padding w3-margin" onsubmit="delete_status()">
+            <button class="w3-button w3-theme w3-theme-hover" type="submit" style="width: 200px;">Slett</button>
+        </form>
+    </div>
+
+</div>
+
+
+<!-- Script --------------------------------------------------------------->
+
+<script>
+
+    function switch_tab(cityName) {
+        // Hide/show tabs
+        $(".statusaction").hide();
+        $('#'+cityName).show();
+        // Update tab link underline
+        w3.removeClass('.tablink', 'w3-border-theme');
+        w3.addClass('#'+cityName+'-link', 'w3-border-theme');
+    }
+
+    function new_status() {
+        var txt = $("#new-status-text").val();
+        $.ajax({
+            url: "/status",
+            type: "POST",
+            data: JSON.stringify({
+                txt: txt,
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        });
+    }
+
+    function edit_status() {
+        var txt = $("#edit-status-text").val();
+        $.ajax({
+            url: "/status",
+            type: "UPDATE",
+            data: JSON.stringify({
+                txt: txt,
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        });
+    }
+
+    function delete_status() {
+        $.ajax({
+            url: "/status",
+            type: "DELETE",
+        });
+    }
+
+</script>

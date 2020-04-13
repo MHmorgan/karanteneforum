@@ -1,0 +1,83 @@
+
+{# Live-kviss -----------------------------------------------------#}
+
+<div class="w3-container w3-padding-32 w3-row">
+    <p class="w3-text-red w3-center"><i>Ikke ferdig</i></p>
+    <h1 class="w3-center">Aktive live-kviss</h1>
+
+    <div class="w3-col s12 m6 l4">
+        <div class="w3-card w3-hover-shadow w3-margin">
+            <header class="w3-container w3-theme">
+                <h3>Fredagskviss</h3>
+            </header>
+            <div class="w3-container">
+                <p>Den ukentlige fredagskvissen!</p>
+            </div>
+            <button class="w3-button w3-block w3-theme">Bli med!</button>
+        </div>
+    </div>
+
+    <div class="w3-col s12 m6 l4">
+        <div class="w3-card w3-hover-shadow w3-margin">
+            <header class="w3-container w3-theme">
+                <h3>Lørdagskviss</h3>
+            </header>
+            <div class="w3-container">
+                <p>En ukjent lørdagskviss...</p>
+            </div>
+            <button class="w3-button w3-block w3-theme">Bli med!</button>
+        </div>
+    </div>
+
+    <div class="w3-col s12 m6 l4">
+        <div class="w3-card w3-hover-shadow w3-margin">
+            <header class="w3-container w3-theme">
+                <h3>Langfredagkos og kjos</h3>
+            </header>
+            <div class="w3-container">
+                <p>Påskekos!</p>
+            </div>
+            <button class="w3-button w3-block w3-theme">Bli med!</button>
+        </div>
+    </div>
+
+</div>
+
+
+{# Kvisser --------------------------------------------------------#}
+
+<div class="w3-container">
+    <h1 class="w3-center">Ta en kviss</h1>
+
+    <table class="w3-table">
+        <col class="w3-hide-small w3-hide-medium" style="width: 20%;">
+        <col>
+        <col class="w3-hide-small w3-hide-medium" style="width: 20%;">
+
+        {% for tittel in ['Påskekviss 1', 'Påskekviss 2', 'Duskenkviss'] %}
+        <tr>
+            <td></td>
+            <td>
+                <div class="w3-bar w3-theme-l1">
+                    <b class="w3-bar-item">{{ tittel }}</b>
+                    <a class="w3-bar-item w3-button w3-right">Resultater</a>
+                    <a class="w3-bar-item w3-button w3-right">Spill!</a>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+
+{# Script ---------------------------------------------------------#}
+
+<script>
+
+    $(document).ready(() => {
+        $('#quiz-button').prop('disabled', true);
+    });
+
+</script>

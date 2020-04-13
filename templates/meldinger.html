@@ -1,0 +1,66 @@
+
+<div class="w3-container w3-center w3-margin">
+
+    <form action="" class="w3-row-padding w3-margin-bottom" style="margin-left: 10%; margin-right: 10%;" id="send-melding-form" onsubmit="send_melding()">
+        <div class="w3-col m11">
+            <input class="w3-input w3-theme-l5" type="text" id="meldings-text" placeholder="Melding...">
+        </div>
+        <div class="w3-col m1">
+            <button class="w3-button w3-theme w3-theme-hover" type="submit" style="width: 100%;">Send</button>
+        </div>
+    </form>
+
+    <div class="w3-responsive" style="margin-left: 10%; margin-right: 10%;">
+        <table class="w3-table w3-hoverable" id="message-table">
+            <col width=170px>
+            <col width=150px>
+
+            {% for tid,navn,txt in MESSAGES %}
+            <tr>
+                <td class="w3-opacity">[{{ tid }}]</td>
+                <td class="w3-opacity w3-center"><u>{{ navn }}</u></td>
+                <td>{{ txt }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+    // Stop refreshing page when submitting new message form
+    $(document).ready( () => {
+        $("#send-melding-form").submit( (e) => {
+            e.preventDefault();
+        });
+    });
+
+    // Send new message async
+    function send_melding() {
+        var txt = $("#meldings-text").val();
+        $.ajax({
+            url: "/message",
+            type: "POST",
+            data: JSON.stringify({
+                msg: txt,
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        });
+        // Remove text from input
+        $("#meldings-text").val('');
+    }
+
+    socket.on('new_message', (tid, navn, txt) => {
+        $('#message-table').prepend(`
+            <tr>
+                <td class="w3-opacity">[` + tid + `]</td>
+                <td class="w3-opacity w3-center"><u>` + navn + `</u></td>
+                <td>` + txt + `</td>
+            </tr>
+        `);
+    });
+
+</script>
