@@ -1,4 +1,4 @@
-<!-- Main navbar ---------------------------------------------------------->
+{# Main navbar --------------------------------------------------------- #}
 
 <div class="w3-top">
     <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
@@ -20,44 +20,40 @@
 
         {#
         <!-- Agenda link icon -->
-        <a href="/agenda" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme" title="Agenda">
+        <a href="/agenda" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large w3-hover-theme" title="Agenda">
             <i class="fa fa-list"></i>
         </a>
         #}
 
         <!-- Kalender link icon -->
-        <a href="/hva_skjer" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme"
+        <a href="/hva_skjer" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large w3-hover-theme"
             title="Sjekk hva skjer">
             <i class="fas fa-calendar-alt"></i>
         </a>
 
         <!-- Messages link icon -->
-        <a href="/meldinger" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme"
+        <a href="/meldinger" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large w3-hover-theme"
             title="Meldinger">
             <i class="fas fa-comments"></i>
         </a>
 
         <!-- User name and special permission links -->
-        <div class="w3-dropdown-hover w3-right w3-hide-small">
+        <div class="w3-dropdown-hover w3-right w3-hide-small w3-hide-medium">
             <button class="w3-button w3-padding-large w3-hover-theme">
                 <i class="far fa-user-circle w3-margin-right"></i>{{ USER }}
             </button>
             <div class="w3-dropdown-content w3-bar-block w3-theme-d2" style="right:0">
 
                 {% if KVISSMASTER_RETTIGHET or BDFL_RETTIGHET %}
-                <a href="/kvissmaster" class="w3-bar-item w3-button">Kvissmaster</a>
+                <a href="/kvissmaster" class="w3-bar-item w3-button"><i class="fas fa-question " style="width: 30px;"></i> Kvissmaster</a>
                 {% endif %}
 
                 {% if STATUS_RETTIGHET or BDFL_RETTIGHET %}
-                <a href="/status" class="w3-bar-item w3-button">Ny status</a>
+                <a href="/status" class="w3-bar-item w3-button"><i class="fas fa-rss " style="width: 30px;"></i> Ny status</a>
                 {% endif %}
 
                 {% if TILGANGER_RETTIGHET or BDFL_RETTIGHET %}
-                <a href="/tilganger" class="w3-bar-item w3-button">Brukerrettigheter</a>
-                {% endif %}
-
-                {% if BDFL_RETTIGHET or BDFL_RETTIGHET %}
-                <a href="/bdfl" class="w3-bar-item w3-button">BDFL</a>
+                <a href="/tilganger" class="w3-bar-item w3-button"><i class="fas fa-user-cog " style="width: 30px;"></i> Brukerrettigheter</a>
                 {% endif %}
 
             </div>
@@ -65,37 +61,87 @@
 
         <!-- Sign out button -->
         <form method="post" action="/logout">
-            <button class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large  w3-hover-theme" value="logout"
+            <button class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-right w3-padding-large  w3-hover-theme" value="logout"
                 title="Nå går de gamle hjem!">
                 <i class="fas fa-sign-out-alt"></i>
             </button>
         </form>
 
         <!-- Aktivitet link icon -->
-        <a href="/aktivitet" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-theme w3-right"
+        <a href="/aktivitet" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large w3-hover-theme w3-right"
             title="Aktivitet">
             <i class="fas fa-chart-area"></i>
         </a>
 
         {% endif %}
 
+        <a class="w3-bar-item w3-button w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+           href="javascript:void(0);" onclick="openNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+
+    </div>
+    
+    {# Small navbar -------------------------------------------------------- #}
+    
+    <!-- Navbar on small screens -->
+    <div id="smallNavbar" class="w3-bar-block w3-theme-d2 w3-large">
+    
+        {% if USER %}
+        {#
+        <!-- Agenda link -->
+        <a href="/agenda" class="w3-bar-item w3-button w3-padding-large">
+            <i class="fa fa-list " style="width: 30px;"></i> Agenda
+        </a>
+        #}
+    
+        <!-- kalender link -->
+        <a href="/hva_skjer" class="w3-bar-item w3-button w3-padding-large w3-hover-theme">
+            <i class="fas fa-calendar-alt " style="width: 30px;"></i> sjekk hva skjer
+        </a>
+    
+        <!-- Messages link -->
+        <a href="/meldinger" class="w3-bar-item w3-button w3-padding-large w3-hover-theme">
+            <i class="fas fa-comments " style="width: 30px;"></i> Meldinger
+        </a>
+    
+        {% if KVISSMASTER_RETTIGHET or BDFL_RETTIGHET %}
+        <a href="/kvissmaster" class="w3-bar-item w3-button w3-padding-large w3-hover-theme">
+            <i class="fas fa-question " style="width: 30px;"></i> Kvissmaster
+        </a>
+        {% endif %}
+    
+        {% if STATUS_RETTIGHET or BDFL_RETTIGHET %}
+        <a href="/status" class="w3-bar-item w3-button w3-padding-large">
+            <i class="fas fa-rss " style="width: 30px;"></i> Ny status
+        </a>
+        {% endif %}
+    
+        {% if TILGANGER_RETTIGHET or BDFL_RETTIGHET %}
+        <a href="/tilganger" class="w3-bar-item w3-button w3-padding-large">
+            <i class="fas fa-user-cog " style="width: 30px;"></i> Brukerrettigheter
+        </a>
+        {% endif %}
+    
+        <!-- Aktivitet link -->
+        <a href="/aktivitet" class="w3-bar-item w3-button w3-padding-large">
+            <i class="fas fa-chart-area " style="width: 30px;"></i> Aktivitet
+        </a>
+    
+        <!-- Sign out button -->
+        <form method="post" action="/logout">
+            <button class="w3-bar-item w3-button w3-padding-large" value="logout">
+                <i class="fas fa-sign-out-alt " style="width: 30px;"></i> Nå går de gamle hjem!
+            </button>
+        </form>
+    
+        {% endif %}
     </div>
 </div>
 
 
-<!-- Small navbar --------------------------------------------------------->
 
-<!-- Navbar on small screens -->
-<!-- TODO: oppdater liten navbar -->
-<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
-</div>
-
-
-<!-- Skål pop-up ---------------------------------------------------------->
+{# Skål pop-up --------------------------------------------------------- #}
 
 {% if USER %}
 <div id="cheers-modal" class="w3-modal" onclick="$('#cheers-modal').hide();">
@@ -111,9 +157,17 @@
 {% endif %}
 
 
-<!-- Script --------------------------------------------------------------->
+{# Script -------------------------------------------------------------- #}
 
 <script>
+
+    $(document).ready( () => {
+        $('#smallNavbar').hide();
+    });
+
+    function openNav() {
+        $('#smallNavbar').toggle();
+    }
 
     socket.on('cheers', (msg) => {
         $('#cheers-name').text(msg);
@@ -123,6 +177,5 @@
     socket.on('cheers-quarantine', (msg) => {
         alert('Du skålet nylig og er i skålekarantene!')
     });
-
 
 </script>
