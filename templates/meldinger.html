@@ -53,10 +53,10 @@
 
     socket.on('new_message', (tid, navn, txt) => {
         $('#message-table').prepend(`
-            <tr>
-                <td class="w3-opacity">[` + tid + `]</td>
-                <td class="w3-opacity w3-center"><u>` + navn + `</u></td>
-                <td>` + txt + `</td>
+            <tr class="w3-row">
+                <td class="w3-col l2 w3-hide-small w3-hide-medium w3-opacity">[` + tid + `]</td>
+                <td class="w3-col l2 m3 s4 w3-opacity w3-center"><u>` + navn + `</u></td>
+                <td class="w3-col l7 m9 s8">` + txt + `</td>
             </tr>
         `);
     });
