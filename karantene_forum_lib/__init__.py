@@ -8,7 +8,7 @@ from flask_socketio import SocketIO, send, emit
 # Input validation
 
 # ^\s*(#b?\d+b?|[Uu]\d+|b\d+) \w+
-name_validator = re.compile(r'(#b?|[Uub])\d+ \w+')
+name_validator = re.compile(r'(#b?|[Uub])\d+ .+')
 valid_name = 'Gyldige strindtnavn: #XXX navn / bXXX navn / UXX navn'
 
 kirkegard_validator = re.compile(r'(?i)havstein')
