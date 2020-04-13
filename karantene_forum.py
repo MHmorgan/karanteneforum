@@ -4,6 +4,7 @@
 
 import karantene_forum_lib.database as database
 import os.path
+import sys
 
 from datetime import datetime
 from karantene_forum_lib import *
@@ -296,4 +297,9 @@ def index():
 ################################################################################
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True)
+    if len(sys.argv) == 2 and sys.argv[1] == 'DEBUG':
+        socketio.run(app, debug=True)
+    elif len(sys.argv) == 1:
+        socketio.run(app, host='0.0.0.0', port=4202)
+    else:
+        raise Exception(f'Invalid use.\nUsage: {sys.argv[0]} [DEBUG]')
