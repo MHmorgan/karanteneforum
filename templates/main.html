@@ -1,7 +1,5 @@
 
-<!-- TODO: implement main sections with loop -->
-
-<!-- Kviss -------------------------------------------------------------------->
+{# Kviss ------------------------------------------------------------------- #}
 
 <a href="/kviss" style="text-decoration: none;">
     <div class="w3-container w3-center w3-padding-64 w3-margin w3-card-4 w3-theme w3-hover-opacity">
@@ -10,7 +8,7 @@
 </a>
 
 
-<!-- Drikkeleker -------------------------------------------------------------->
+{# Drikkeleker ------------------------------------------------------------- #}
 
 <a href="/drikkeleker" style="text-decoration: none;">
     <div class="w3-container w3-center w3-padding-64 w3-margin w3-hover-opacity">
@@ -19,7 +17,7 @@
 </a>
 
 
-<!-- Spill -------------------------------------------------------------------->
+{# Spill ------------------------------------------------------------------- #}
 
 <a href="/spill" style="text-decoration: none;">
     <div class="w3-container w3-center w3-padding-64 w3-margin w3-card-4 w3-theme w3-hover-opacity">
@@ -28,7 +26,7 @@
 </a>
 
 
-<!-- Chat --------------------------------------------------------------------->
+{# Chat -------------------------------------------------------------------- #}
 
 {#
 <div class="w3-container w3-center w3-margin w3-padding-64">
@@ -43,29 +41,3 @@
 </div>
 
 {% include 'meldinger.html' %}
-
-
-<!-- Drikkeleker -------------------------------------------------------------->
-
-{#
-<div class="w3-row-padding w3-padding-64 w3-container">
-    <div class="w3-container">
-        <div class="w3-third w3-center">
-            <i class="fas fa-glass-cheers w3-padding-64 w3-text-theme w3-margin-right" style="font-size: 200px;"></i>
-            <!-- <i class="fas fa-glass-cheers"></i> -->
-        </div>
-
-        <div class="w3-twothird w3-center">
-
-            <div class="w3-row-padding">
-                {% for i in range(0,10) %}
-                <div class="w3-col m4 w3-container w3-button w3-theme-hover w3-padding">
-                    <h2>Lek {{ i }}</h2>
-                </div>
-                {% endfor %}
-            </div>
-
-        </div>
-    </div>
-</div>
-#}
