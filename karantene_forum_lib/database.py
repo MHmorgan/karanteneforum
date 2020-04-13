@@ -46,14 +46,14 @@ def add_activity(text: str, user: str):
 def latest_activity() -> Activity:
     '''Return the most recent activity'''
     with DB() as db:
-        res = db.execute(f'''SELECT datetime(TIME, 'localtime'), TEXT FROM {AKTIVITETER_TABLE} WHERE TIME=(SELECT max(TIME) FROM {AKTIVITETER_TABLE});''').fetchone()
+        res = db.execute(f'''SELECT datetime(TIME, 'localtime'), TEXT FROM {AKTIVITETER_TABLE} ORDER BY TIME DESC LIMIT 1;''').fetchone()
     return res
 
 
 def all_activity() -> List[Activity]:
     '''Get all activities. Latest activity is last in list.'''
     with DB() as db:
-        res = db.execute(f'''SELECT datetime(TIME, 'localtime'), TEXT FROM {AKTIVITETER_TABLE};''').fetchall()
+        res = db.execute(f'''SELECT datetime(TIME, 'localtime'), TEXT FROM {AKTIVITETER_TABLE} ORDER BY TIME DESC;''').fetchall()
     return res
 
 
@@ -76,7 +76,7 @@ def latest_messages(n: int = 1) -> List[Message]:
 
 def all_messages() -> List[Message]:
     with DB() as db:
-        res = db.execute(f'''SELECT datetime(TIME, 'localtime'), USER, MSG FROM {MELDINGER_TABLE};''').fetchone()
+        res = db.execute(f'''SELECT datetime(TIME, 'localtime'), USER, MSG FROM {MELDINGER_TABLE} ORDER BY TIME DESC;''').fetchall()
     return res
 
 
@@ -109,7 +109,7 @@ def latest_status(n: int = 1) -> List[Status]:
 
 def all_status() -> List[Status]:
     with DB() as db:
-        res = db.execute(f'''SELECT datetime(TIME, 'localtime'), USER, MSG FROM {STATUS_TABLE};''').fetchall()
+        res = db.execute(f'''SELECT datetime(TIME, 'localtime'), USER, MSG FROM {STATUS_TABLE} ORDER BY TIME DESC;''').fetchall()
     return res
 
 
@@ -122,8 +122,8 @@ def all(n_messages: int = 20) -> Tuple[Activity,Status,List[Message]]:
     using a single connection.
     '''
     with DB() as db:
-        activity = db.execute(f'''SELECT datetime(TIME, 'localtime'), TEXT FROM {AKTIVITETER_TABLE} WHERE TIME=(SELECT max(TIME) FROM {AKTIVITETER_TABLE});''').fetchone()
-        status   = db.execute(f'''SELECT datetime(TIME, 'localtime'), USER, MSG FROM {STATUS_TABLE} WHERE TIME=(SELECT max(TIME) FROM {STATUS_TABLE});''').fetchone()
+        activity = db.execute(f'''SELECT datetime(TIME, 'localtime'), TEXT FROM {AKTIVITETER_TABLE} ORDER BY TIME DESC LIMIT 1;''').fetchone()
+        status   = db.execute(f'''SELECT datetime(TIME, 'localtime'), USER, MSG FROM {STATUS_TABLE} ORDER BY TIME DESC LIMIT 1;''').fetchone()
         messages = db.execute(f'''SELECT datetime(TIME, 'localtime'), USER, MSG FROM {MELDINGER_TABLE} ORDER BY TIME DESC LIMIT {n_messages};''').fetchall()
     return activity, status, messages
 
